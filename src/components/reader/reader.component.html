@@ -1,0 +1,54 @@
+<div class="w-screen h-screen flex flex-col bg-white text-gray-800">
+    <!-- Top Bar -->
+    <div class="flex items-center justify-between px-6 py-4 border-b bg-gray-100 shadow-sm">
+      <h1 class="text-2xl font-semibold">{{ currentBook?.title }}</h1>
+      <button
+        class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition"
+        (click)="goBack()"
+      >
+        ⬅ Back to Dashboard
+      </button>
+    </div>
+  
+    <!-- Content Area -->
+    <div class="flex-1 overflow-auto px-6 py-8">
+      <div class="prose max-w-4xl mx-auto text-lg leading-relaxed">
+        <div *ngFor="let line of visibleLines; let i = index" class="mb-4">
+          <span
+            class="cursor-pointer"
+            [ngClass]="{
+              'bg-yellow-200': isLineRead(i),
+              'hover:bg-yellow-100': true
+            }"
+            (click)="markLineAsRead(i)"
+          >
+            {{ line }}
+          </span>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Bottom Bar -->
+    <div class="border-t bg-gray-100 px-6 py-4 flex items-center justify-between">
+      <div class="text-sm text-gray-600">
+        Page {{ currentPage + 1 }} / {{ totalPages }}
+      </div>
+      <div class="space-x-2">
+        <button
+          (click)="prevPage()"
+          [disabled]="currentPage === 0"
+          class="px-4 py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <button
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages - 1"
+          class="px-4 py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+  
